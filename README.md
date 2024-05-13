@@ -1,6 +1,6 @@
-# A16Standalone
+# JeetCode Frontend
 
-Basic Angular 16 standalone application with routing and TailwindCSS.
+Basic Angular 16 standalone application for frontend for JeetCode
 
 ## Run
 
@@ -33,9 +33,3 @@ export const routes: Routes = [
   },
 ];
 ```
-
-Order matters. Only pages with `title` are displayed in main menu.
-
-## Add a component
-
-`ng generate component components/loading-spinner --standalone`
