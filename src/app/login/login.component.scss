@@ -1,0 +1,242 @@
+.right-column {
+  white-space: nowrap;
+  align-content: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background-image: linear-gradient(-45deg, #000000, #000000, #000000, #a40123);
+  background-size: 400% 400%;
+  animation: gradient 5s ease infinite;
+}
+
+.jc-logo-image {
+  width: 48px;
+  height: 48px;
+}
+
+.title-bar {
+  position: relative;
+  background: #131920;
+  width: 100%;
+  min-height: 40px;
+  margin: 0 0 10px 0;
+  padding: 0;
+  border-radius: 10px 10px 0 0;
+  box-sizing: border-box;
+}
+
+.title-bar .button-1,
+.title-bar .button-2,
+.title-bar .button-3 {
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  display: inline-block;
+  margin: 0 5px;
+  position: absolute;
+}
+
+.title-bar .button-1 {
+  background: #ED6A5E;
+  bottom: 10px; /* Adjust this value to move towards the bottom */
+  left: 10px; /* Adjust this value to move towards the right */
+}
+
+.title-bar .button-2 {
+  background: #F4BF4F;
+  bottom: 10px; /* Adjust this value to move towards the bottom */
+  left: 34px; /* Adjust this value to move towards the right */
+}
+
+.title-bar .button-3 {
+  background: #61C554;
+  bottom: 10px; /* Adjust this value to move towards the bottom */
+  left: 58px; /* Adjust this value to move towards the right */
+}
+
+.signup-box {
+  width: 100%;
+  max-width: 900px;
+  height: 400px;
+  margin: 0;
+  background: #181E25; /* Set background color */
+  border-radius: 10px; /* Add border radius for rounded corners */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  position: relative;
+}
+
+.signup-box form {
+  margin: 0; /* Remove default margin for better alignment */
+}
+
+.signup-box label {
+  color: #fff;
+  font-size: 20px; /* Adjust label font size */
+}
+
+.JeetCode-logo {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 25px;
+  margin-left: 25px;
+}
+
+.signup-message {
+  display: inline-block;
+  left: 10px;
+}
+
+.signup-message p {
+  color: white;
+  font-size: 50px;
+  font-family: ClashGrotesk;
+  font-weight: 700;
+  letter-spacing: 15px;
+}
+
+h1 {
+  font-size: 24px;
+  text-align: center;
+}
+
+form {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0;
+}
+
+form input {
+  width: 100%;
+  font-family: monospace;
+  background: #181E25;
+  color: white;
+}
+
+label {
+  color: #fff;
+  font-size: 24px;
+}
+
+input:focus ~ label {
+  color: #b1b0b0;
+}
+
+input::placeholder {
+  color: #6a6a6a;
+}
+
+button {
+  background: transparent;
+  color: greenyellow;
+  border: none; /* Remove border */
+  cursor: pointer; /* Show pointer cursor on hover */
+  padding: 0; /* Remove padding */
+  margin-right: 5px;
+  font-family: monospace;
+}
+
+button:focus {
+  outline-width: 3px; /* Customize border width */
+  outline-color: greenyellow;
+}
+
+button:disabled,
+button[disabled] {
+  color: red;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0 50%;
+  }
+}
+
+.typing {
+  display: inline-block;
+  font-family: monospace;
+  color: whitesmoke;
+}
+
+.terminal-text {
+  color: greenyellow;
+  margin: 0 0 0 20px;
+  font-family: monospace;
+}
+
+.terminal-line {
+  display: flex;
+}
+
+.terminal-alert {
+  color: red;
+  font-family: monospace;
+  display: block;
+  margin-left: 200px;
+}
+
+.terminal-alert-good {
+  color: green;
+  font-family: monospace;
+  display: block;
+  margin-left: 200px;
+}
+
+.invisible-input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: white;
+  caret-color: white;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  display: inline-block;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: #ffffff;
+  transition: background-color 5000s ease-in-out 0s;
+  box-shadow: inset 0 0 20px 20px #151515;
+}
+.input-div{
+  margin-left: 20px;
+}
+
+.wantSignup{
+  position: absolute;
+  display: inline-block;
+  color: white;
+  bottom: 10px;
+  left: 20px;
+  color:greenyellow;
+  font-family: monospace;
+}
+
+.wantSignup:hover{
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.failed-login{
+  color: red;
+  font-family: monospace;
+  margin-left: 20px;
+}

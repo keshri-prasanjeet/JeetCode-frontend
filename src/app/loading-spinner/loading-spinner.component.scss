@@ -1,0 +1,10 @@
+.loader {
+  @apply inline-flex items-center;
+  @apply text-slate-300 text-sm animate-pulse;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    @apply flex mr-2 h-5 w-5 text-slate-500
+  }
+}

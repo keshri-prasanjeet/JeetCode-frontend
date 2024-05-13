@@ -1,0 +1,134 @@
+<body>
+<div class="right-column" #div>
+  <div class="JeetCode-logo" [routerLink]="''">
+    <img src="/assets/images/JeetCode-faviconblackbox.svg" class="jc-logo-image">
+  </div>
+  <div class="signup-message">
+    <p>SIGN UP ➔</p>
+  </div>
+  <div class="signup-box">
+    <div class="title-bar">
+      <div class="button-1">
+
+      </div>
+      <div class="button-2">
+
+      </div>
+      <div class="button-3">
+
+      </div>
+    </div>
+    <ngx-typed-js [strings]="['signup']"
+                  [typeSpeed]="200"
+                  [startDelay]="1000"
+                  [cursorChar]="'_'"
+                  [loop]="false"
+                  [showCursor]="true"
+                  *ngIf="!formVisible"
+    >
+      <p class="terminal-text">jeetCode guest> <span class="typing"></span></p>
+    </ngx-typed-js>
+    <p class="terminal-text" *ngIf="formVisible">jeetCode guest>
+      <span class="typing">signup</span>
+    </p>
+    <!--    (keydown.enter)="handleFormKeydown($event)"-->
+    <!--    (keydown.enter)="$event.preventDefault()"-->
+    <form
+      (keydown.enter)="handleFormKeydown($event)"
+      #signupFormNew="ngForm" (ngSubmit)="AdminFormSubmit(signupFormNew.value)">
+      <p class="terminal-text" *ngIf="formVisible && showUserNameInput">jeetCode guest> signup/username>
+        <input
+          ngModel name="fullName" #fullName="ngModel" type="text"
+          class="invisible-input" id="fullName" placeholder="*enter user name*"
+          (keyup.enter)="handleUsernameEnter()"
+          required
+        >
+      </p>
+      <div class="terminal-line" *ngIf="formVisible && showEmailInput">
+        <p class="terminal-text">jeetCode guest> signup/email>
+          <input
+            ngModel name="email" #email="ngModel" type="text"
+            class="invisible-input" id="email" placeholder="*enter email id*"
+            (keyup.enter)="handleEmailEnter()"
+            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+            required>
+        </p>
+        <!-- This is the error section -->
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="terminal-alert">
+          <div *ngIf="email.errors?.['required']">
+            <--- email field can't be blank
+          </div>
+          <div *ngIf="email.errors?.['pattern'] && email.touched">
+            <--- the email id doesn't seem right
+          </div>
+        </div>
+        <div *ngIf="email.valid && email.dirty && email.touched" class="terminal-alert-good">
+          ✓ email looks okay
+        </div>
+      </div>
+
+      <div class="terminal-line" *ngIf="formVisible && showPasswordInput">
+        <p class="terminal-text">jeetCode guest> signup/password>
+          <input
+            ngModel name="password" #password="ngModel"
+            class="invisible-input" id="password" type="password" placeholder="*enter password*"
+            (keyup.enter)="handlePasswordEnter()"
+            minlength="8"
+            required>
+        </p>
+        <!--         This is the error section -->
+        <div *ngIf="password.invalid && (password.dirty || password.touched)"
+             class="terminal-alert">
+          <div *ngIf="signupFormNew.controls['password']?.value.length < 8">
+            password should be at least 8 characters
+          </div>
+        </div>
+        <div *ngIf="signupFormNew.controls['password']?.value.length >= 8"
+             class="terminal-alert-good">
+          ✓ password looks okay
+        </div>
+      </div>
+
+
+      <div class="terminal-line" *ngIf="formVisible && showConfirmPasswordInput">
+
+        <p class="terminal-text">jeetCode guest> signup/confirm-password>
+          <input
+            ngModel name="confirmPassword" class="invisible-input" id="confirmPassword"
+            type="password" placeholder="confirm Password" #confirmPassword="ngModel"
+            (keyup.enter)="handleConfirmPasswordEnter()"
+            minlength="8"
+            required>
+        </p>
+        <!--         This is the error section -->
+        <div *ngIf="confirmPassword.invalid && (confirmPassword.dirty || confirmPassword.touched)"
+             class="terminal-alert">
+          <!--          <div *ngIf="signupFormNew.controls['confirmPassword']?.value.length < 8">-->
+          <!--            password should be at least 8 characters-->
+          <!--          </div>-->
+          <div *ngIf="signupFormNew.controls['password']?.value !== signupFormNew.controls['confirmPassword']?.value">
+            Passwords do not match.
+          </div>
+        </div>
+        <div *ngIf="signupFormNew.controls['password']?.value.length >= 8 && signupFormNew.controls['password']?.value === signupFormNew.controls['confirmPassword']?.value"
+             class="terminal-alert-good">
+          ✓ passwords are matching
+        </div>
+      </div>
+      <div class="input-div" *ngIf="formVisible && showButton">
+        <button type="reset"
+                class="reset-button" #resetButton
+                (click)="handleResetClick()"
+        >Cancel
+        </button>
+        <button type="submit"
+                [disabled]="!signupFormNew.form.valid"
+                class="sub-button" id="subButton" #subButton
+        >Submit
+        </button>
+      </div>
+    </form>
+    <p class="wantLogin" [routerLink]="'/login'">Login?</p>
+  </div>
+</div>
+</body>

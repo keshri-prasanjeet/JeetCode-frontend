@@ -1,0 +1,57 @@
+<body>
+<div class="background">
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+  <span></span>
+</div>
+<div class="main-container">
+  <div class="keshri-labs-logo">
+    <img src="/assets/images/KeshriXLabs%20expanded-logowhite.svg" class="keshri-logo-image">
+  </div>
+  <div class="JeetCode-logo">
+    <img src="/assets/images/JeetCode-faviconblackbox.svg" class="jc-logo-image" [routerLink]="'/home'">
+  </div>
+  <div class="main-div">
+    <div class="welcome-text">
+      <p>WELCOME TO ></p>
+    </div>
+    <div class="salutation">
+      <ngx-typed-js [strings]="['JEETCODE','지트코드','JEETCODE','जीतकोड','JEETCODE','ジートコード','JEETCODE','ಜೀಟ್‌ಕೋಡ್']"
+                    [loop]="true" [typeSpeed]="100">
+        <h1 class="typing"></h1>
+      </ngx-typed-js>
+    </div>
+    <div class="button-div">
+      <div>
+        <button [routerLink]="'/signup'">Signup</button>
+      </div>
+      <div>
+        <button [routerLink]="'/login'">Login</button>
+      </div>
+    </div>
+    <div class="home-page-message">
+      <p>Start practicing your coding skills today</p>
+    </div>
+  </div>
+</div>
+</body>

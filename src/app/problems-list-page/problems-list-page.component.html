@@ -1,0 +1,39 @@
+<body>
+<div id="navbar">
+  <div class="JeetCode-logo" [routerLink]="'home'">
+    <img src="/assets/images/JeetCode-faviconblackbox.svg" class="jc-logo-image">
+  </div>
+  <a [routerLink]="['/me']" id="user-info">{{username}}</a>
+  <a (click)="logout()" id="logout-button">Logout</a>
+</div>
+
+<div id="content" style="text-align: center;">
+  <h2 class="heading">JeetCode - Problems</h2>
+
+  <table class="text-center">
+    <thead>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Difficulty</th>
+      <th>Acceptance</th>
+      <th>Action</th>
+      <!-- Add more headers as needed -->
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let problem of problems">
+      <td>{{problem.problemId}}</td>
+      <td>{{problem.title}}</td>
+      <td>{{problem.difficulty}}</td>
+      <td>{{problem.acceptance}}</td>
+      <td>
+        <button (click)="onSolveButtonClick(problem.problemId)" class="solve-button">Solve</button>
+        <button (click)="onSubmissionsButtonClick(problem.problemId)" class="solve-button">Submissions</button>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</div>
+</body>

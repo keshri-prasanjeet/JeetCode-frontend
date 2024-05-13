@@ -1,0 +1,123 @@
+
+<body>
+<div id="navbar">
+  <div class="JeetCode-logo" [routerLink]="'home'">
+    <img src="/assets/images/JeetCode-faviconblackbox.svg" class="jc-logo-image">
+  </div>
+  <a [routerLink]="['/problems']" id="problems-page"> | Problems</a>
+  <a [routerLink]="['/me']" id="user-info">{{username}}</a>
+  <a (click)="logout()" id="logout-button">Logout</a>
+</div>
+
+<div id="content">
+  <div class="left">
+    <div class="problem">
+      <h1>{{problemData.title}}</h1>
+
+      <div class="difficulty">Difficulty: {{problemData.difficulty}}</div>
+      <div class="acceptance">Acceptance: {{problemData.acceptance}}</div>
+
+      <h2>Description</h2>
+      <p class="problem-description">{{problemData.description}}</p>
+
+      <h2>Example</h2>
+      <div class="example">
+        <p class="exampleTestCase"> Input: <code>{{problemData.exampleIn}}</code></p>
+        <p class="exampleTestCase"> Output: <code>{{problemData.exampleOut}}</code></p>
+      </div>
+
+      <!-- Add more examples if needed -->
+
+      <h2>Constraints</h2>
+      <ul>
+        <!-- Add any constraints if provided in the problem statement -->
+      </ul>
+
+    </div>
+    <div class="button-div">
+      <button class="run-button" (click)="runCode()">Run</button>
+      <button class="submit-button" (click)="submitCode()">Submit</button>
+    </div>
+    <div *ngIf="submitInProg" class="subcode">
+      <a>Submitting code ...</a>
+    </div>
+    <div #exampleTestCase class="submission-details-example" *ngIf="successfulRun">
+      <h3 class="TestCaseHeading">Example test case</h3>
+      <div id="status">Submission Status: {{Substatus}}</div>
+      <div id="stdin">Stdin: {{stdin}}</div>
+      <div id="output">Stdout: {{output}}</div>
+      <div id="time">Time: {{time}}</div>
+      <div id="memory">Memory: {{memory}}</div>
+      <div id="languageId">Language: {{languageId}}</div>
+    </div>
+
+    <div #hiddenTestCase1 class="submission-details" *ngIf="successfulSubmit">
+      <h3 class="TestCaseHeading">Hidden test case 1</h3>
+      <div id="status2">Submission Status: {{SubSubStatus}}</div>
+      <div>Stdin: Hidden</div>
+      <div>Stdout: Hidden</div>
+      <div id="time2">Time: {{subTime}}</div>
+      <div id="memory2">Memory: {{subMemory}}</div>
+      <div id="language2">Language: {{languageId}}</div>
+    </div>
+
+    <div #hiddenTestCase2 class="submission-details" *ngIf="successfulSubmit">
+      <h3 class="TestCaseHeading">Hidden test case 2</h3>
+      <div id="status3">Submission Status: {{SubSubStatus}}</div>
+      <div>Stdin: Hidden</div>
+      <div>Stdout: Hidden</div>
+      <div id="time3">Time: {{subTime}}</div>
+      <div id="memory3">Memory: {{subMemory}}</div>
+      <div id="language3">Language: {{languageId}}</div>
+    </div>
+
+  </div>
+  <div class="resizer" data-direction="horizontal"></div>
+  <div class="editor-container">
+    <div class="language-change-box">
+      <div class="language-dropdown">
+        <select
+          class="dropdown"
+          id="theme"
+          name="theme"
+          [(ngModel)]="theme"
+          (ngModelChange)="changeTheme()"
+        >
+          <option value="darcula">darcula</option>
+          <option value="night">night</option>
+          <option value="material">material</option>
+          <option value="blackboard">blackboard</option>
+          <option value="cobalt">cobalt</option>
+        </select>
+      </div>
+      <div class="language-dropdown">
+        <select
+          class="dropdown"
+          id="language"
+          name="language"
+          [(ngModel)]="mode"
+          (ngModelChange)="changeMode()"
+        >
+          <option value="text/typescript">TypeScript</option>
+          <option value="text/x-python">Python</option>
+          <option value="text/x-java">Java</option>
+          <option value="text/x-c++src">C++</option>
+          <option value="text/x-csrc">C</option>
+        </select>
+      </div>
+    </div>
+    <div class="ngx-codemirror">
+      <ngx-codemirror
+        [options]="options"
+        [ngModel]="defaults[mode]"
+        [disabled]="readOnly"
+        [autoFocus]="true"
+        (ngModelChange)="handleChange($event)"
+        #codemirrorComponent
+      ></ngx-codemirror>
+    </div>
+
+  </div>
+
+</div>
+</body>

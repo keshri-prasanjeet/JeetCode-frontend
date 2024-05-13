@@ -1,0 +1,123 @@
+body {
+  font-family: 'Consolas', monospace;
+  background-color: #000000;
+  margin: 0; /* Reset margin to 0 */
+  height: 100%;
+  color-scheme: dark;
+}
+
+#navbar {
+  display: flex;
+  justify-content: right;
+  padding: 10px 20px;
+  background-color: #333;
+  color: #ddd;
+}
+
+#navbar a {
+  color: #ddd;
+  text-decoration: none;
+  font-size: 18px;
+  font-weight: 800;
+  margin-left: 20px;
+}
+
+
+h2 {
+  color: lightgray;
+  margin:20px;
+  font-family: ClashGrotesk;
+  /*text-transform: uppercase;*/
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+  margin-left: 0;
+  margin-right: 0;
+
+}
+th, td {
+  padding: 12px;
+  border-bottom: 1px solid #ddd;
+  color: white;
+  font-size: 20px;
+}
+th {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  font-size: 15px;
+
+}
+tr{
+  transition: all .2s ease-in-out;
+}
+tr:hover {
+  background-color: #2b2a2a;
+}
+
+button {
+  background-color: #daef68;
+  border: 1px solid #daef68;
+  color: #151515;
+  display: inline-block;
+  font-family: HealTheWebA;
+  font-weight: 700;
+  letter-spacing: .1em;
+  padding: 13px 56px;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition: all .2s ease-in-out;
+  box-sizing: border-box;
+  margin-right: 10px;
+  font-size: 15px;
+}
+
+button:hover {
+  background-color: black;
+  color:white;
+}
+.button-div{
+  margin-top: 30px;
+}
+
+#user-info {
+  //margin-right: 20px;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 14px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+#logout-button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  cursor: pointer;
+}
+#content {
+  margin: 0; /* Add margin for content */
+  text-align: center;
+  //height: 100vh;
+}
+
+.JeetCode-logo {
+  display: inline-block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  margin-top: 10px;
+  margin-left: 10px;
+
+}
+.jc-logo-image {
+  width: 48px;
+  height: 48px;
+}

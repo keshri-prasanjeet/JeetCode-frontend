@@ -1,0 +1,21 @@
+<body xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div id="navbar">
+  <a [routerLink]="['/problems']" id="problems-page"> | Problems</a>
+  <a (click)="logout()" id="logout-button">Logout</a>
+</div>
+
+<div id="container">
+  <div class="user-label">Hello!</div>
+  <div class="user-value">{{mepageuserdata.fullName}}</div>
+
+  <div id="user-details">
+    <div class="detail-label">Email:</div>
+    <div class="detail-value">{{mepageuserdata.emailId}}</div>
+
+    <div class="detail-label">Submission Count:</div>
+    <div class="detail-value">{{mepageuserdata.submissionCount}}</div>
+  </div>
+</div>
+
+</body>
