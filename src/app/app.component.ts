@@ -16,7 +16,7 @@ import {slideInAnimation} from "./animation";
   ]
 })
 export class AppComponent {
-  title = 'JeetCode V2';
+  title = 'JeetCode';
   isLoading: boolean = false;
 
   constructor(public router: Router,

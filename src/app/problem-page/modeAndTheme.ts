@@ -17,11 +17,11 @@ public class Main {
     }
 }
 `,
-  'text/x-python': `print("Welcome to JeetCode)`,
+  'text/x-python': `print("Hello, Welcome to JeetCode!")`,
   'text/x-c++src': `#include <iostream>
 using namespace std;
   int main() {
-    cout << "Hello, this is a simple C++ boilerplate!" << endl;
+    cout << "Hello, Welcome to JeetCode!" << endl;
 
     // Your code here
 
@@ -31,7 +31,7 @@ using namespace std;
   'text/x-csrc': `#include <stdio.h>
 
 int main() {
-    printf("Hello, this is a simple C boilerplate code!\\n");
+    printf("Hello, Welcome to JeetCode!\\n");
 
     // Your C code here
 

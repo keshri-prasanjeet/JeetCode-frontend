@@ -10,9 +10,8 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AdminService {
 
-  private baseUrl = "http://localhost:8080/";
-  private judgeZUrl: string = "http://127.0.0.1:54934/";
-  apiKey: string = 'f63ef82964msh09bccee0e458976p1ed017jsn113517e50100';
+  private baseUrl = "https://jeetcodebackend-latest.onrender.com/";
+  private judgeZUrl: string = "http://64.227.139.187:2358/";
 
   constructor(
     private http: HttpClient,
@@ -101,9 +100,7 @@ export class AdminService {
     // const exampleInMatch = problemData.match(/exampleIn=([^,]+)/);
     // const exampleOutMatch = problemData.match(/exampleOut=([^,]+)/);
     const headers= new HttpHeaders({
-      'Content-Type': 'application/json',
-        'X-RapidAPI-Key': 'f63ef82964msh09bccee0e458976p1ed017jsn113517e50100',
-        'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
+      'Content-Type': 'application/json'
     });
 
     const body = {
@@ -119,10 +116,7 @@ export class AdminService {
 
   submitToken(token:string){
     let url: string = this.judgeZUrl + `/submissions/${token}?base64_encoded=false&fields=*`;
-    const headers= new HttpHeaders({
-      'X-RapidAPI-Key': 'f63ef82964msh09bccee0e458976p1ed017jsn113517e50100',
-      'X-RapidAPI-Host': 'judge0-ce.p.rapidapi.com'
-    });
+    const headers= new HttpHeaders({});
     const req = new HttpRequest('GET', url, {headers:headers});
     return this.http.request(req);
   }
