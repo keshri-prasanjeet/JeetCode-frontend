@@ -11,7 +11,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 export class AdminService {
 
   private baseUrl = "https://jeetcodebackend-latest.onrender.com/";
-  private judgeZUrl: string = "http://64.227.139.187:2358/";
+  private judgeZUrl: string = "https://kashxlabs.online/";
 
   constructor(
     private http: HttpClient,
