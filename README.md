@@ -1,35 +1,34 @@
 # JeetCode Frontend
 
-Basic Angular 16 standalone application for frontend for JeetCode
+This repository contains the Angular frontend for JeetCode, an interactive platform for solving Data Structures and Algorithms problems.
 
-## Run
+## Overview
 
-* `npm i`
-* `ng s` or `ng b`
+JeetCode Frontend provides the user interface for the JeetCode platform, offering a seamless and intuitive experience for users to practice coding problems.
 
-## Add a page
+## Features
 
-`ng generate component pages/some-page --standalone`
+- Browser-based IDE
+- Problem listing and navigation
+- User authentication interface
+- Results and performance visualization
 
-Then add it into `src/app/app.routes.ts`:
+## Getting Started
 
-```ts
-export const routes: Routes = [
-  {path: 'home', component: HomePageComponent, title: 'Home'},
-  {
-    path: 'contacts',
-    title: 'Contacts',
-    loadComponent: () => import('./pages/contacts-page/contacts-page.component').then(mod => mod.ContactsPageComponent)
-  },
-  {
-    path: 'about',
-    title: 'About',
-    loadComponent: () => import('./pages/about-page/about-page.component').then(mod => mod.AboutPageComponent)
-  },
-  {
-    path: '**',
-    pathMatch: 'full',
-    redirectTo: 'home',
-  },
-];
-```
+1. Clone this repository
+2. Install dependencies with `npm install`
+3. Run the development server with `ng serve`
+
+## More Information
+
+For a comprehensive overview of the entire JeetCode project, including backend details and full feature list, please visit our main repository:
+
+[JeetCode Main Repository](https://github.com/keshri-prasanjeet/JeetCode.git)
+
+## Contributing
+
+We welcome contributions! Please check the main repository for contribution guidelines.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file in the main repository for details.
