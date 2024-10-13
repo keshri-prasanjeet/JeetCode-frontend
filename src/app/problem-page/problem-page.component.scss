@@ -151,15 +151,15 @@ button:hover {
   border-color: #66cbee;
 }
 
-.subcode{
-  color: #ffffff;
-  //font-weight:bold;
-  padding-left:20px;
-  font-family: ClashGrotesk;
-  padding-top: 50px;
-  display: inline-block;
-  font-size: 1.5vw;
-}
+//.subcode{
+//  color: #ffffff;
+//  //font-weight:bold;
+//  padding-left:20px;
+//  font-family: ClashGrotesk;
+//  padding-top: 50px;
+//  display: inline-block;
+//  font-size: 1.5vw;
+//}
 
 #user-info {
   //margin-right: 20px;
@@ -241,3 +241,34 @@ select:focus {outline: 0;}
   width: 48px;
   height: 48px;
 }
+
+.subcode {
+  color: #ffffff;
+  padding-left: 20px;
+  font-family: ClashGrotesk;
+  padding-top: 50px;
+  display: inline-flex; // Changed to inline-flex for proper alignment with spinner
+  align-items: center; // Vertically centers items
+  font-size: 1.5vw;
+
+  .spinner {
+    border: 4px solid rgba(255, 255, 255, 0.3);
+    border-top: 4px solid #dbd834; // Change to your preferred colour
+    border-radius: 50%;
+    width: 20px; // Adjust size
+    height: 20px; // Adjust size
+    animation: spin 1s linear infinite;
+    margin-right: 8px; // Space between spinner and text
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+}
+
+

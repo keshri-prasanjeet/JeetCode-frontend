@@ -1,9 +1,10 @@
-import {Component} from '@angular/core';
-import {CommonModule} from '@angular/common';
-import {ChildrenOutletContexts, RouterOutlet} from '@angular/router';
-import {Router, RouteConfigLoadStart, RouteConfigLoadEnd} from '@angular/router';
-import {LoadingSpinnerComponent} from "./loading-spinner/loading-spinner.component";
-import {slideInAnimation} from "./animation";
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouteConfigLoadEnd, RouteConfigLoadStart, Router, RouterOutlet } from '@angular/router';
+import { LoadingSpinnerComponent } from "./loading-spinner/loading-spinner.component";
+import { LoadingService } from './loading.service';
+import { slideInAnimation } from "./animation";
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -11,28 +12,21 @@ import {slideInAnimation} from "./animation";
   imports: [CommonModule, RouterOutlet, LoadingSpinnerComponent],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  animations: [
-    slideInAnimation
-  ]
+  animations: [slideInAnimation]
 })
 export class AppComponent {
   title = 'JeetCode';
-  isLoading: boolean = false;
+  isLoading$: Observable<boolean>;
 
-  constructor(public router: Router,
-              private contexts: ChildrenOutletContexts) {
-    this.router.events.subscribe(
-      (event: any): void => {
-        if (event instanceof RouteConfigLoadStart) {
-          this.isLoading = true;
-        } else if (event instanceof RouteConfigLoadEnd) {
-          this.isLoading = false;
-        }
+  constructor(public router: Router, public loadingService: LoadingService) {
+    this.isLoading$ = this.loadingService.isLoading$;
+
+    this.router.events.subscribe((event: any): void => {
+      if (event instanceof RouteConfigLoadStart) {
+        this.loadingService.setLoading(true);
+      } else if (event instanceof RouteConfigLoadEnd) {
+        this.loadingService.setLoading(false);
       }
-    );
-  }
-
-  getRouteAnimationData() {
-    return this.contexts.getContext('primary')?.route?.snapshot?.data?.['animation'];
+    });
   }
 }

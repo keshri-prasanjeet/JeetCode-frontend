@@ -1,5 +1,4 @@
-<div class="app-container" [@routeAnimations]="getRouteAnimationData()">
-  <router-outlet *ngIf="!isLoading">
-  </router-outlet>
-  <app-loading-spinner *ngIf="isLoading"/>
+<div class="app-container">
+  <router-outlet></router-outlet>
+  <app-loading-spinner *ngIf="isLoading$ | async"></app-loading-spinner>
 </div>

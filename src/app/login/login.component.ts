@@ -6,6 +6,7 @@ import {Router, RouterLink} from '@angular/router';
 import {JsonPipe, NgIf} from "@angular/common";
 import {NgxTypedJsModule} from "ngx-typed-js";
 import { AuthGuard } from "./auth.guard";
+import {SmallScreenLoginComponent} from "../small-screen-login/small-screen-login.component";
 
 @Component({
   selector: 'app-login',
@@ -16,11 +17,15 @@ import { AuthGuard } from "./auth.guard";
     JsonPipe,
     NgIf,
     RouterLink,
-    NgxTypedJsModule
+    NgxTypedJsModule,
+    [SmallScreenLoginComponent]
   ],
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit{
+
+  isKeyboardAttached: boolean = false;
+
   private adminDetail: AdminDetail = new AdminDetail();
   @ViewChild('div', {static: false}) div!:ElementRef;
   @ViewChild('email') email!: ElementRef;
@@ -28,6 +33,17 @@ export class LoginComponent {
   @ViewChild('resetButton') resetButton!: ElementRef;
 
   backgroundValue = '';
+
+  ngOnInit(): void {
+    // Detect if a keyboard is attached (or use custom logic)
+    this.checkForKeyboard();
+  }
+
+  checkForKeyboard(): void {
+    // This is a very basic way to check for keyboard; you might want to improve detection based on your requirements
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    this.isKeyboardAttached = !isTouchDevice;
+  }
   constructor(
     private adminService: AdminService,
     private router: Router,
@@ -49,16 +65,16 @@ export class LoginComponent {
   OnSubmit:boolean =false;//flag to check if focus is on submit button
   failedLogin:boolean = false;
   LoginFormSubmit(value: any) {
-    console.log(value);
+    // console.log(value);
     this.adminDetail.emailId = value.emailId;
     this.adminDetail.password = value.password;
     this.adminDetail.fullName = value.fullName;
 
     this.adminService.login(this.adminDetail).subscribe({
       next: (response: any) => {
-        console.log(response);
+        // console.log(response);
         if (response && response.jwtToken) {
-          console.log("Token received from server on login:", response.jwtToken);
+          // console.log("Token received from server on login:", response.jwtToken);
 
           const jwtToken = response.jwtToken;
           localStorage.setItem('JWT', jwtToken);
@@ -83,12 +99,12 @@ export class LoginComponent {
 
   @HostListener('window:keyup',['$event'])
   handleKeyDown(event: KeyboardEvent) {
-    console.log("this Host listener is triggered");
+    // console.log("this Host listener is triggered");
     // console.log(document.activeElement);
     // console.log("is the active element")
     if (event.key === 'Enter') {
       this.formVisible = true;
-      console.log("Host listener is triggered")
+      // console.log("Host listener is triggered")
       this.showUserNameInput = true;
       if(this.firstFocus===false)
         setTimeout(() => {

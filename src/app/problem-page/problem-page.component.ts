@@ -2,14 +2,18 @@ import {AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/
 import {ActivatedRoute, RouterLink} from "@angular/router";
 import {AdminService} from "../services/admin.service";
 import {Problem} from "../classes/problem";
-import {CommonModule} from '@angular/common';
+import {AsyncPipe, CommonModule, NgIf} from '@angular/common';
 import {FormsModule} from "@angular/forms";
 import {CodemirrorComponent, CodemirrorModule} from "@ctrl/ngx-codemirror";
 import {languages, modes, themes} from "./modeAndTheme";
+import {SkeletonComponent} from "../skeleton/skeleton.component";
+import {LoadingService} from "../loading.service";
+import {Observable} from "rxjs";
 
 const defaults = modes;
 const cmThemes = themes;
 const langs = languages
+
 @Component({
   selector: 'app-problem-page',
   standalone: true,
@@ -17,15 +21,19 @@ const langs = languages
     RouterLink,
     CodemirrorModule,
     CommonModule,
-    FormsModule
+    FormsModule,
+    SkeletonComponent,
+    AsyncPipe,
+    NgIf
   ],
   templateUrl: './problem-page.component.html',
   styleUrls: ['./problem-page.component.scss']
 })
-export class ProblemPageComponent implements OnInit, AfterViewInit{
+export class ProblemPageComponent implements OnInit, AfterViewInit {
 
+  isLoading$: Observable<boolean>;
   readOnly = false;
-  mode: keyof typeof defaults = 'text/typescript';
+  mode: keyof typeof defaults = 'text/x-python';
   theme: keyof typeof cmThemes = 'night';
   // language: keyof typeof langs = 'text/typescript';
   language = 74;
@@ -39,10 +47,11 @@ export class ProblemPageComponent implements OnInit, AfterViewInit{
 
   defaults = defaults;
   @ViewChild('codemirrorComponent') codemirrorComponent!: CodemirrorComponent;
-  @ViewChild('exampleTestCase') exampleTestCaseDiv!:ElementRef;
-  @ViewChild('hiddenTestCase1') hiddenTestCase1!:ElementRef;
-  @ViewChild('hiddenTestCase2') hiddenTestCase2!:ElementRef;
-  submitInProg:boolean = false;
+  @ViewChild('exampleTestCase') exampleTestCaseDiv!: ElementRef;
+  @ViewChild('hiddenTestCase1') hiddenTestCase1!: ElementRef;
+  @ViewChild('hiddenTestCase2') hiddenTestCase2!: ElementRef;
+  submitInProg: boolean = false;
+  runInProg: boolean = false;
 
   changeMode(): void {
     this.options = {
@@ -50,7 +59,7 @@ export class ProblemPageComponent implements OnInit, AfterViewInit{
       mode: this.mode,
     };
     this.language = langs[this.mode];
-    console.log(this.language + " is the language selected")
+    //console.log(this.language + " is the language selected")
   }
 
   changeTheme(): void {
@@ -62,7 +71,7 @@ export class ProblemPageComponent implements OnInit, AfterViewInit{
 
 
   handleChange($event: Event): void {
-    console.log('ngModelChange', $event);
+    //console.log('ngModelChange', $event);
   }
 
   clear(): void {
@@ -73,56 +82,63 @@ export class ProblemPageComponent implements OnInit, AfterViewInit{
 
   submit() {
     const editorContent = this.codemirrorComponent.value;
-    console.log(editorContent);
+    //console.log(editorContent);
   }
 
-  problemData:Problem = new Problem();
+  problemData: Problem = new Problem();
   problemId: number = 0;
   username: string = '';
   successfulRun: boolean = false;
-  successfulSubmit:boolean = false;
+  successfulSubmit: boolean = false;
 
 
-  Substatus:string = '';
-  stdin:string = '';
-  output:string = '';
-  time:string = '';
-  memory:string = '';
-  languageId:string = '';
+  Substatus: string = '';
+  stdin: string = '';
+  output: string = '';
+  time: string = '';
+  memory: string = '';
+  languageId: string = '';
 
-  SubSubStatus:string = '';
-  subTime:string = '';
-  subMemory:string = '';
-  divToManipulate:string = '';
-  constructor(private adminService:AdminService, private route: ActivatedRoute, private el: ElementRef) {
+  SubSubStatus: string = '';
+  subTime: string = '';
+  subMemory: string = '';
+  divToManipulate: string = '';
+
+  constructor(
+    private adminService: AdminService,
+    private route: ActivatedRoute,
+    private el: ElementRef,
+    private loadingService: LoadingService,
+  ) {
+    this.isLoading$ = this.loadingService.getComponentLoading$('problemData');
   }
+
   ngOnInit(): void {
     this.route.params.subscribe((params => {
-      console.log("just before")
-      console.log(params);
+      // console.log("just before")
+      // console.log(params);
       this.problemId = this.route.snapshot.params['problemId'];
-      console.log(this.problemId);
+      //console.log(this.problemId);
     }));
     this.getProblemData();
   }
 
-  getLanguage(){
+  getLanguage() {
     this.adminService.getLanguages().subscribe({
-      next:(response:any) =>{
-        console.log(response);
+      next: (response: any) => {
+        // //console.log(response);
       }
     });
   }
 
-  getProblemData(){
-    console.log("the problem id that will be sent to service is " + this.problemId);
+  getProblemData() {
+    //console.log("the problem id that will be sent to service is " + this.problemId);
+    this.loadingService.setComponentLoading('problemData', true);
     this.adminService.getProblemData(this.problemId).subscribe({
-      next:(response:any) => {
-        console.log(response + "is the response in getproblemData");
-        if(typeof response ==="string"){
+      next: (response: any) => {
+        if (typeof response === "string") {
           console.error('Error fetching problem data', response);
-        }
-        else {
+        } else {
           this.problemData.problemId = response.problemData.problemId;
           this.problemData.title = response.problemData.title;
           this.problemData.difficulty = response.problemData.difficulty;
@@ -135,121 +151,116 @@ export class ProblemPageComponent implements OnInit, AfterViewInit{
           this.problemData.example3_in = response.problemData.example3_in;
           this.problemData.example3_out = response.problemData.example3_out;
           this.username = response.username;
+          this.loadingService.setComponentLoading('problemData', false);
         }
       },
       error: (error) => {
         console.error('Error fetching problems data:', error);
+        this.loadingService.setComponentLoading('problemData', false);
       },
     });
   }
 
   runCode() {
-    console.log("run code clicked");
-    this.submitInProg = true;
+    this.runInProg = true;
     this.successfulSubmit = false;
     const editorContent = this.codemirrorComponent.value;
-    console.log(editorContent);
-    console.log(this.problemData.exampleIn);
-    console.log(this.problemData.exampleOut);
     this.adminService.runCode(this.language, this.problemData.exampleIn, this.problemData.exampleOut, editorContent).subscribe({
-      next:(response:any) => {
-        console.log(response.body.token);
-        this.checkSubmission(response.body.token);
+      next: (response: any) => {
+        if (response.body && response.body.token) {
+          this.checkSubmission(response.body.token);
+        }
       }
     });
   }
 
-  checkSubmission(token:string){
+  checkSubmission(token: string) {
+    // console.log("token", token);
     this.adminService.submitToken(token).subscribe({
-      next:(result:any) => {
-        console.log(result);
-        if(result.body.status.id ==2 || result.body.status.id == 1){
-          console.log('Retrying');
-          setTimeout(() => {
-            this.checkSubmission(token);
-          }, 1000);
-        }
-        else{
-          console.log('Final Result', result);
-          this.submitInProg = false;
-          this.successfulRun = true;
-          this.Substatus = result.body.status.description;
-          this.stdin = result.body.stdin;
-          this.output = result.body.stdout;
-          this.time = result.body.time;
-          this.memory = result.body.memory;
-          this.languageId = result.body.language.name;
-          setTimeout(() => {
-            this.exampleTestCaseDiv.nativeElement.style.color = result.body.status.id !== 3 ? "red" : "green";
-          });
+      next: (result: any) => {
+        if (result && result.body) {
+          if (result.body.status.id == 2 || result.body.status.id == 1) {
+            setTimeout(() => {
+              this.checkSubmission(token);
+            }, 1000);
+          } else {
+            this.runInProg = false;
+            this.successfulRun = true;
+            this.Substatus = result.body.status.description;
+            this.stdin = result.body.stdin;
+            this.output = result.body.stdout;
+            this.time = result.body.time;
+            this.memory = result.body.memory;
+            this.languageId = result.body.language.name;
+            setTimeout(() => {
+              this.exampleTestCaseDiv.nativeElement.style.color = result.body.status.id !== 3 ? "red" : "green";
+            });
+          }
         }
       }
     });
   }
 
   submitCode() {
-    console.log("submit code clicked");
     this.submitInProg = true;
     this.successfulRun = false;
     const editorContent = this.codemirrorComponent.value;
     this.adminService.runCode(this.language, this.problemData.example2_in, this.problemData.example2_out, editorContent).subscribe({
-      next:(response2:any) => {
-        console.log("response 2", response2.body.token);
-        this.checkSubmitSubmission(response2.body.token, 1);
+      next: (response2: any) => {
+        if (response2 && response2.body) {
+          this.checkSubmitSubmission(response2.body.token, 1);
+        }
       }
     });
     this.adminService.runCode(this.language, this.problemData.example3_in, this.problemData.example3_out, editorContent).subscribe({
-      next:(response3:any) => {
-        console.log(response3.body.token);
-        this.checkSubmitSubmission(response3.body.token, 2);
+      next: (response3: any) => {
+        if (response3 && response3.body) {
+          this.checkSubmitSubmission(response3.body.token, 2);
+        }
       }
     });
   }
 
-  checkSubmitSubmission(token:string, section:number){
+  checkSubmitSubmission(token: string, section: number) {
     this.adminService.submitToken(token).subscribe({
-      next:(result:any) => {
-        console.log(result);
-        if(result.body.status.id ==2 || result.body.status.id == 1){
-          console.log('Retrying');
-          setTimeout(() => {
-            this.checkSubmitSubmission(token, section);
-          }, 1000);
-        }
-        else{
-          this.submitInProg = false;
-          if(section===1){
-            console.log('Final Result submit 1', result);
-            this.successfulSubmit = true;
-            this.SubSubStatus = result.body.status.description;
-            this.subTime = result.body.time;
-            this.subMemory = result.body.memory;
-            this.languageId = result.body.language.name;
+      next: (result: any) => {
+        if (result && result.body) {
+          if (result.body.status.id == 2 || result.body.status.id == 1) {
+            setTimeout(() => {
+              this.checkSubmitSubmission(token, section);
+            }, 1000);
+          } else {
+            this.submitInProg = false;
+            if (section === 1) {
+              //console.log('Final Result submit 1', result);
+              this.successfulSubmit = true;
+              this.SubSubStatus = result.body.status.description;
+              this.subTime = result.body.time;
+              this.subMemory = result.body.memory;
+              this.languageId = result.body.language.name;
 
-            setTimeout(() => {
-              if (result.body.status.id !== 3) {
-                this.hiddenTestCase1.nativeElement.style.color = "red";
-              }
-              else{
-                this.hiddenTestCase1.nativeElement.style.color = "green";
-              }
-            });
-          }
-          else{
-            console.log('Final Result submit 2', result);
-            this.successfulSubmit = true;
-            this.Substatus = result.body.status.description;
-            this.time = result.body.time;
-            this.memory = result.body.memory;
-            this.languageId = result.body.language.name;
-            setTimeout(() => {
-              if (result.body.status.id !== 3) {
-                this.hiddenTestCase2.nativeElement.style.color = "red";
-              }
-              else{
-                this.hiddenTestCase2.nativeElement.style.color = "green";
-              }
-            });
+              setTimeout(() => {
+                if (result.body.status.id !== 3) {
+                  this.hiddenTestCase1.nativeElement.style.color = "red";
+                } else {
+                  this.hiddenTestCase1.nativeElement.style.color = "green";
+                }
+              });
+            } else {
+              //console.log('Final Result submit 2', result);
+              this.successfulSubmit = true;
+              this.Substatus = result.body.status.description;
+              this.time = result.body.time;
+              this.memory = result.body.memory;
+              this.languageId = result.body.language.name;
+              setTimeout(() => {
+                if (result.body.status.id !== 3) {
+                  this.hiddenTestCase2.nativeElement.style.color = "red";
+                } else {
+                  this.hiddenTestCase2.nativeElement.style.color = "green";
+                }
+              });
+            }
           }
         }
       }

@@ -58,9 +58,9 @@
   left: 58px; /* Adjust this value to move towards the right */
 }
 
-.signup-box {
+.login-box {
   width: 100%;
-  max-width: 900px;
+  min-width: 900px;
   height: 400px;
   margin: 0;
   background: #181E25; /* Set background color */
@@ -69,11 +69,11 @@
   position: relative;
 }
 
-.signup-box form {
+.login-box form {
   margin: 0; /* Remove default margin for better alignment */
 }
 
-.signup-box label {
+.login-box label {
   color: #fff;
   font-size: 20px; /* Adjust label font size */
 }
@@ -87,12 +87,12 @@
   margin-left: 25px;
 }
 
-.signup-message {
+.login-message {
   display: inline-block;
   left: 10px;
 }
 
-.signup-message p {
+.login-message p {
   color: white;
   font-size: 50px;
   font-family: ClashGrotesk;

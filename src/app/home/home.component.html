@@ -1,57 +1,70 @@
-<body>
-<div class="background">
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
-  <span></span>
+<!--<div class="background">-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--  <span></span>-->
+<!--</div>-->
+
+<div class="background-container">
+  <div class="container">
+    <div class="blobs">
+      <div class="blob a"></div>
+      <div class="blob b"></div>
+      <div class="blob c"></div>
+      <div class="blob d"></div>
+    </div>
+  </div>
 </div>
-<div class="main-container">
-  <div class="keshri-labs-logo">
-    <img src="/assets/images/KeshriXLabs%20expanded-logowhite.svg" class="keshri-logo-image">
+
+<div class="relative min-h-screen bg-transparent text-white font-['HealTheWebA'] z-10">
+  <div class="absolute top-6 right-6 w-24 sm:w-24 md:w-24 lg:w-32 xl:w-40 cursor-pointer">
+    <img src="/assets/images/KeshriXLabs%20expanded-logowhite.svg" class="w-full" alt="KeshriXLabs Logo">
   </div>
-  <div class="JeetCode-logo">
-    <img src="/assets/images/JeetCode-faviconblackbox.svg" class="jc-logo-image" [routerLink]="'/home'">
+  <div class="absolute top-6 left-6 w-12 sm:w-12 md:w-12 lg:w-16 xl:w-20 cursor-pointer">
+    <img src="/assets/images/JeetCode-faviconblackbox.svg" class="w-full" [routerLink]="'/home'" alt="JeetCode Logo">
   </div>
-  <div class="main-div">
-    <div class="welcome-text">
+  <div class="flex flex-col justify-center items-center h-screen">
+    <div class="text-2xl sm:text-4xl mb-32 text-ghostwhite tracking-[0.5em]">
       <p>WELCOME TO ></p>
     </div>
-    <div class="salutation">
-      <ngx-typed-js [strings]="['JEETCODE','지트코드','JEETCODE','जीतकोड','JEETCODE','ジートコード','JEETCODE','ಜೀಟ್‌ಕೋಡ್']"
-                    [loop]="true" [typeSpeed]="100">
-        <h1 class="typing"></h1>
+    <div>
+      <ngx-typed-js
+        [strings]="['JEETCODE','지트코드','JEETCODE','जीतकोड','JEETCODE','ジートコード']"
+        [loop]="true" [typeSpeed]="100">
+        <h1 class="typing text-5xl sm:text-8xl text-whitesmoke inline-block"></h1>
       </ngx-typed-js>
     </div>
-    <div class="button-div">
-      <div>
-        <button [routerLink]="'/signup'">Signup</button>
-      </div>
-      <div>
-        <button [routerLink]="'/login'">Login</button>
-      </div>
+    <div class="flex mt-10 space-x-4">
+      <button
+        class="bg-[#daef68] text-[#151515] hover:bg-black hover:text-white py-3 px-10 font-bold uppercase tracking-widest transition duration-200 border border-[#daef68]"
+        [routerLink]="'/signup'">Signup
+      </button>
+      <button
+        class="bg-[#daef68] text-[#151515] hover:bg-black hover:text-white py-3 px-10 font-bold uppercase tracking-widest transition duration-200 border border-[#daef68]"
+        [routerLink]="'/login'">Login
+      </button>
     </div>
-    <div class="home-page-message">
+    <div class="text-center mt-32 text-lg sm:text-lg text-amber-100">
       <p>Start practicing your coding skills today</p>
     </div>
   </div>
 </div>
-</body>

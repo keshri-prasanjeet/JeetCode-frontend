@@ -1,10 +1,8 @@
 import {Routes} from '@angular/router';
-import {CodemirComponent} from "./codemir/codemir.component";
-import {LoadingSpinnerComponent} from "./loading-spinner/loading-spinner.component";
 import {HomeComponent} from "./home/home.component";
-import {LoginComponent} from "./login/login.component";
 import {MeComponent} from "./me/me.component";
 import {AuthGuard} from "./login/auth.guard";
+import {SpinGuard} from "./spin.guard";
 
 export const routes: Routes = [
   {
@@ -32,21 +30,22 @@ export const routes: Routes = [
     title: 'Problem',
     loadComponent: () => import('./problem-page/problem-page.component').then(mod => mod.ProblemPageComponent)
   },
-  {
-    path: 'codemir',
-    title: 'Codemir',
-    loadComponent: () => import('./codemir/codemir.component').then(mod => mod.CodemirComponent)
-  },
+  // {
+  //   path: 'codemir',
+  //   title: 'Codemir',
+  //   loadComponent: () => import('./codemir/codemir.component').then(mod => mod.CodemirComponent)
+  // },
   {
     path: 'spin',
-    title:'Spin',
-    loadComponent:  () => import('./loading-spinner/loading-spinner.component').then(mod => mod.LoadingSpinnerComponent)
+    title: 'Spin',
+    loadComponent: () => import('./loading-spinner/loading-spinner.component').then(mod => mod.LoadingSpinnerComponent),
+    canActivate: [SpinGuard]
   },
-  {
-    path: 'resize',
-    title: 'resize',
-    loadComponent:  () => import('./resize-test/resize-test.component').then(mod => mod.ResizeTestComponent)
-  },
+  // {
+  //   path: 'resize',
+  //   title: 'resize',
+  //   loadComponent:  () => import('./resize-test/resize-test.component').then(mod => mod.ResizeTestComponent)
+  // },
   {
     path: 'me',
     title: 'me',

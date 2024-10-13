@@ -1,74 +1,92 @@
-
 <body>
 <div id="navbar">
-  <div class="JeetCode-logo" [routerLink]="'home'">
+  <div class="JeetCode-logo" [routerLink]="['/problems']">
     <img src="/assets/images/JeetCode-faviconblackbox.svg" class="jc-logo-image">
   </div>
   <a [routerLink]="['/problems']" id="problems-page"> | Problems</a>
-  <a [routerLink]="['/me']" id="user-info">{{username}}</a>
+  <a [routerLink]="['/me']" id="user-info">{{ username }}</a>
   <a (click)="logout()" id="logout-button">Logout</a>
 </div>
 
 <div id="content">
   <div class="left">
-    <div class="problem">
-      <h1>{{problemData.title}}</h1>
+    <ng-container *ngIf="(isLoading$ | async) === false; else loadingTemplate">
+      <div class="problem">
+        <h1>{{ problemData.title }}</h1>
 
-      <div class="difficulty">Difficulty: {{problemData.difficulty}}</div>
-      <div class="acceptance">Acceptance: {{problemData.acceptance}}</div>
+        <div class="difficulty">Difficulty: {{ problemData.difficulty }}</div>
+        <div class="acceptance">Acceptance: {{ problemData.acceptance }}</div>
 
-      <h2>Description</h2>
-      <p class="problem-description">{{problemData.description}}</p>
+        <h2>Description</h2>
+        <p class="problem-description">{{ problemData.description }}</p>
 
-      <h2>Example</h2>
-      <div class="example">
-        <p class="exampleTestCase"> Input: <code>{{problemData.exampleIn}}</code></p>
-        <p class="exampleTestCase"> Output: <code>{{problemData.exampleOut}}</code></p>
+        <h2>Example</h2>
+        <div class="example">
+          <p class="exampleTestCase"> Input:  <code> {{ problemData.exampleIn }}</code></p>
+          <p class="exampleTestCase"> Output:  <code> {{ problemData.exampleOut }}</code></p>
+        </div>
       </div>
+    </ng-container>
 
-      <!-- Add more examples if needed -->
+    <ng-template #loadingTemplate>
+      <div class="problem">
+        <h1><app-skeleton [width]="500" [height]="40"></app-skeleton></h1>
 
-      <h2>Constraints</h2>
-      <ul>
-        <!-- Add any constraints if provided in the problem statement -->
-      </ul>
+        <div class="difficulty">Difficulty: <app-skeleton [width]="80" [height]="20"></app-skeleton></div>
+        <div class="acceptance">Acceptance: <app-skeleton [width]="80" [height]="20"></app-skeleton></div>
 
-    </div>
+        <h2>Description</h2>
+        <p class="problem-description"><app-skeleton [width]="250" [height]="20"></app-skeleton></p>
+
+        <h2>Example</h2>
+        <div class="example">
+          <p class="exampleTestCase"> Input: <app-skeleton [width]="50" [height]="20"></app-skeleton></p>
+          <p class="exampleTestCase"> Output: <app-skeleton [width]="50" [height]="20"></app-skeleton></p>
+        </div>
+      </div>
+    </ng-template>
+
+
     <div class="button-div">
       <button class="run-button" (click)="runCode()">Run</button>
       <button class="submit-button" (click)="submitCode()">Submit</button>
     </div>
+    <div *ngIf="runInProg" class="subcode">
+      <div class="spinner"></div>
+      <span>Running your code against example test case</span>
+    </div>
     <div *ngIf="submitInProg" class="subcode">
-      <a>Submitting code ...</a>
+      <div class="spinner"></div>
+      <span>Submitting your code against multiple hidden test cases</span>
     </div>
     <div #exampleTestCase class="submission-details-example" *ngIf="successfulRun">
       <h3 class="TestCaseHeading">Example test case</h3>
-      <div id="status">Submission Status: {{Substatus}}</div>
-      <div id="stdin">Stdin: {{stdin}}</div>
-      <div id="output">Stdout: {{output}}</div>
-      <div id="time">Time: {{time}}</div>
-      <div id="memory">Memory: {{memory}}</div>
-      <div id="languageId">Language: {{languageId}}</div>
+      <div id="status">Submission Status: {{ Substatus }}</div>
+      <div id="stdin">Stdin: {{ stdin }}</div>
+      <div id="output">Stdout: {{ output }}</div>
+      <div id="time">Time: {{ time }}</div>
+      <div id="memory">Memory: {{ memory }}</div>
+      <div id="languageId">Language: {{ languageId }}</div>
     </div>
 
     <div #hiddenTestCase1 class="submission-details" *ngIf="successfulSubmit">
       <h3 class="TestCaseHeading">Hidden test case 1</h3>
-      <div id="status2">Submission Status: {{SubSubStatus}}</div>
+      <div id="status2">Submission Status: {{ SubSubStatus }}</div>
       <div>Stdin: Hidden</div>
       <div>Stdout: Hidden</div>
-      <div id="time2">Time: {{subTime}}</div>
-      <div id="memory2">Memory: {{subMemory}}</div>
-      <div id="language2">Language: {{languageId}}</div>
+      <div id="time2">Time: {{ subTime }}</div>
+      <div id="memory2">Memory: {{ subMemory }}</div>
+      <div id="language2">Language: {{ languageId }}</div>
     </div>
 
     <div #hiddenTestCase2 class="submission-details" *ngIf="successfulSubmit">
       <h3 class="TestCaseHeading">Hidden test case 2</h3>
-      <div id="status3">Submission Status: {{SubSubStatus}}</div>
+      <div id="status3">Submission Status: {{ SubSubStatus }}</div>
       <div>Stdin: Hidden</div>
       <div>Stdout: Hidden</div>
-      <div id="time3">Time: {{subTime}}</div>
-      <div id="memory3">Memory: {{subMemory}}</div>
-      <div id="language3">Language: {{languageId}}</div>
+      <div id="time3">Time: {{ subTime }}</div>
+      <div id="memory3">Memory: {{ subMemory }}</div>
+      <div id="language3">Language: {{ languageId }}</div>
     </div>
 
   </div>
@@ -112,6 +130,7 @@
         [ngModel]="defaults[mode]"
         [disabled]="readOnly"
         [autoFocus]="true"
+        [spellcheck]="true"
         (ngModelChange)="handleChange($event)"
         #codemirrorComponent
       ></ngx-codemirror>

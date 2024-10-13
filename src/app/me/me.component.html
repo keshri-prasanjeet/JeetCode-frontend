@@ -5,17 +5,30 @@
   <a (click)="logout()" id="logout-button">Logout</a>
 </div>
 
-<div id="container">
-  <div class="user-label">Hello!</div>
-  <div class="user-value">{{mepageuserdata.fullName}}</div>
+<ng-container *ngIf="(isLoading$ | async) === false; else loadingTemplate">
+  <div class="container">
+    <div class="user-label">Hello!</div>
+    <div class="user-value">{{mepageuserdata.fullName}}</div>
 
-  <div id="user-details">
-    <div class="detail-label">Email:</div>
-    <div class="detail-value">{{mepageuserdata.emailId}}</div>
-
-    <div class="detail-label">Submission Count:</div>
-    <div class="detail-value">{{mepageuserdata.submissionCount}}</div>
+    <div class="user-details">
+      <div class="detail-label">Email:</div>
+      <div class="detail-value">{{mepageuserdata.emailId}}</div>
+    </div>
   </div>
-</div>
+
+</ng-container>
+
+<ng-template #loadingTemplate>
+  <div class="container">
+    <div class="user-label">Hello!</div>
+    <div class="user-value"><app-skeleton [width]="150" [height]="20"></app-skeleton></div>
+
+    <div class="user-details">
+      <div class="detail-label">Email:</div>
+      <div class="detail-value"><app-skeleton [width]="150" [height]="20"></app-skeleton></div>
+    </div>
+  </div>
+
+</ng-template>
 
 </body>

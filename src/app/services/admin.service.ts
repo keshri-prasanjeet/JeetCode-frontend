@@ -10,7 +10,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 })
 export class AdminService {
 
-  private baseUrl = "https://jeetcodebackend-latest.onrender.com/";
+  private baseUrl = "https://jc-be.online/";
   private judgeZUrl: string = "https://kashxlabs.online/";
 
   constructor(
@@ -33,12 +33,12 @@ export class AdminService {
   private createAuthorizationHeader(): HttpHeaders | null {
     const jwtToken = localStorage.getItem('JWT');
     if (jwtToken) {
-      console.log("the token inside func is " + jwtToken)
+      // console.log("the token inside func is " + jwtToken)
       return new HttpHeaders().set(
         'Authorization', 'Bearer ' + jwtToken
       )
     } else {
-      console.log("JWT token not found in the Local Storage");
+      // console.log("JWT token not found in the Local Storage");
     }
     return null;
   }
@@ -97,8 +97,6 @@ export class AdminService {
 
   runCode(languageId:number, exampleIn:string, exampleOut:string, editorContent:string): Observable<any>{
     let url: string = this.judgeZUrl + "submissions?base64_encoded=false&fields=*";
-    // const exampleInMatch = problemData.match(/exampleIn=([^,]+)/);
-    // const exampleOutMatch = problemData.match(/exampleOut=([^,]+)/);
     const headers= new HttpHeaders({
       'Content-Type': 'application/json'
     });
@@ -115,7 +113,7 @@ export class AdminService {
   }
 
   submitToken(token:string){
-    let url: string = this.judgeZUrl + `/submissions/${token}?base64_encoded=false&fields=*`;
+    let url: string = this.judgeZUrl + `submissions/${token}?base64_encoded=false&fields=*`;
     const headers= new HttpHeaders({});
     const req = new HttpRequest('GET', url, {headers:headers});
     return this.http.request(req);

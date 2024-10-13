@@ -1,150 +1,87 @@
-.button-div {
-  display: flex;
-
-  button {
-    background-color: #daef68;
-    border: 1px solid #daef68;
-    color: #151515;
-    display: inline-block;
-    font-family: HealTheWebA;
-    font-style: normal;
-    font-weight: 700;
-    letter-spacing: 0.1em;
-    padding: 13px 56px;
-    text-align: center;
-    text-decoration: none;
-    text-transform: uppercase;
-    transition: all 0.2s ease-in-out;
-    box-sizing: border-box;
-    margin: 10px;
-
-    &:hover {
-      background-color: black;
-      color: white;
-    }
-  }
-
-  margin-top: 30px;
-}
-
-.welcome-text {
-  font-size: 20px;
-  margin-bottom: 130px;
-  font-family: Noto_Sans_Mono, serif;
-  font-variation-settings: "wght" 700;
-  color: ghostwhite;
-  letter-spacing: 10px;
-}
-
-.typing {
-  font-size: 200px;
-  display: inline-block;
-  font-family: HealTheWebA;
-  color: whitesmoke;
-}
-
-body {
-  background: black;
-}
-
-.salutation {
-}
-
-.main-div {
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.main-container {
-  position: relative;
-}
-
-.home-page-message {
-  margin-top: 150px;
-  font-family: Noto_Sans_Mono, monospace;
-  font-variation-settings: "wght" 700;
-  font-size: 15px;
-}
-
-.keshri-logo-image {
-  width: 100%;
-}
-
-.jc-logo-image {
-  width: 100%;
-}
-
-.keshri-labs-logo,
-.JeetCode-logo {
-  display: inline-block;
-  position: absolute;
-  height: auto;
-  margin-top: 25px;
-
-  &.keshri-labs-logo {
-    right: 0;
-    top: 0;
-    margin-right: 25px;
-    width:15%;
-  }
-
-  &.JeetCode-logo {
-    left: 0;
-    top: 0;
-    margin-left: 25px;
-    width: 5%;
-  }
-}
-
-@keyframes move {
-  100% {
-    transform: translate3d(0, 0, 1px) rotate(360deg);
-  }
-}
-
-.background {
+.background-container {
   position: fixed;
-  width: 100vw;
-  height: 100vh;
   top: 0;
   left: 0;
-  background: #000000;
-  overflow: hidden;
-
-  span {
-    width: 50vmin;
-    height: 50vmin;
-    border-radius: 50vmin;
-    backface-visibility: hidden;
-    position: absolute;
-    animation: move;
-    animation-duration: 10s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-
-    &:nth-child(0) {
-      color: #ccf96c;
-      top: 100%;
-      left: 73%;
-      animation-duration: 61s;
-      animation-delay: -43s;
-      transform-origin: -5vw -20vh;
-      box-shadow: -100vmin 0 12.70167723618181vmin currentColor;
-    }
-
-    // ... (rest of the span styling)
-
-    &:nth-child(22) {
-      color: #ccf96c;
-      top: 50%;
-      left: 68%;
-      animation-duration: 149s;
-      animation-delay: -321s;
-      transform-origin: 2vw -11vh;
-      box-shadow: -100vmin 0 13.010180027044514vmin currentColor;
-    }
-  }
+  width: 100%;
+  height: 100%;
+  z-index: 1;
 }
+
+.container {
+  background: black;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+.container:after {
+  content: "";
+  width: 100%;
+  height: 100vh;
+  background: url("https://i.imgur.com/PsjPzdO.png");
+  background-size: 200px;
+  mix-blend-mode: overlay;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.container .blobs {
+  width: 50vh;
+  height: 50vh;
+  display: block;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container .blobs .blob {
+  width: 100%;
+  height: 100%;
+  border-radius: 100%;
+  position: absolute;
+  background-color: #73a612;
+  mix-blend-mode: multiply;
+  filter: blur(80px);
+}
+
+.container .blobs .blob.a {
+  background-color: #5a9307;
+  animation: circular2 40s linear infinite;
+}
+
+.container .blobs .blob.b {
+  background-color: #a7a945;
+  animation: circular 20s linear infinite;
+}
+
+.container .blobs .blob.c {
+  background-color: #1f1f12;
+  animation: circular 5s linear infinite;
+}
+
+.container .blobs .blob.d {
+  background-color: #57a945;
+  animation: circular 10s reverse infinite;
+}
+
+@keyframes circular {
+  0% { transform: translate(0, -150px); }
+  25% { transform: translate(150px, 0); }
+  50% { transform: translate(0, 150px); }
+  75% { transform: translate(-150px, 0); }
+  100% { transform: translate(0, -150px); }
+}
+
+@keyframes circular2 {
+  0% { transform: translate(0, 150px); }
+  25% { transform: translate(-150px, 0); }
+  50% { transform: translate(0, -150px); }
+  75% { transform: translate(150px, 0); }
+  100% { transform: translate(0, 150px); }
+}
+
+// Add any additional styles for your component here

@@ -6,22 +6,26 @@ import {AdminDetail} from "../classes/admin-detail";
 import {AdminService} from "../services/admin.service";
 import {Router, RouterLink} from "@angular/router";
 import {NgxTypedJsModule} from "ngx-typed-js";
+import { SmallScreenSignupComponent } from '../small-screen-signup/small-screen-signup.component'; // Correct path
 
 @Component({
-  selector: 'app-signup-right-column',
+  selector: 'app-signup',
   standalone: true,
   imports: [
     FormsModule,
     NgIf,
     RouterLink,
     NgStyle,
-    NgxTypedJsModule
+    NgxTypedJsModule,
+    [SmallScreenSignupComponent]
   ],
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss']
 })
 
-export class SignupComponent {
+export class SignupComponent implements OnInit{
+
+  isKeyboardAttached: boolean = false;
   private adminDetail: AdminDetail = new AdminDetail();
   @ViewChild('div', {static: false}) div!:ElementRef;
   @ViewChild('email') email!: ElementRef;
@@ -29,6 +33,17 @@ export class SignupComponent {
   @ViewChild('resetButton') resetButton!: ElementRef;
 
   backgroundValue = '';
+
+  ngOnInit(): void {
+    // Detect if a keyboard is attached (or use custom logic)
+    this.checkForKeyboard();
+  }
+
+  checkForKeyboard(): void {
+    // This is a very basic way to check for keyboard; you might want to improve detection based on your requirements
+    const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+    this.isKeyboardAttached = !isTouchDevice;
+  }
   constructor(
     private adminService: AdminService,
     private router: Router,
@@ -53,11 +68,11 @@ export class SignupComponent {
     this.adminDetail.fullName = formData.fullName;
     this.adminDetail.password = formData.password;
     this.adminDetail.emailId = formData.email;
-    console.log(this.adminDetail);
+    //console.log(this.adminDetail);
     this.adminService.saveAdminDetails(this.adminDetail).subscribe({
         next: response => {
           let result = response;
-          console.log("Response from server:", response);
+          //console.log("Response from server:", response);
           // Check for success based on the response structure
           if (result.message === 'Registration successful') {
             this.router.navigate(['/login']);
@@ -82,12 +97,12 @@ export class SignupComponent {
 
   @HostListener('window:keyup',['$event'])
   handleKeyDown(event: KeyboardEvent) {
-    console.log("this Host listener is triggered");
-    // console.log(document.activeElement);
-    // console.log("is the active element")
+    //console.log("this Host listener is triggered");
+    //console.log(document.activeElement);
+    //console.log("is the active element")
     if (event.key === 'Enter') {
       this.formVisible = true;
-      console.log("Host listener is triggered")
+      //console.log("Host listener is triggered")
       this.showUserNameInput = true;
       if(this.firstFocus===false)
         setTimeout(() => {
@@ -118,7 +133,7 @@ export class SignupComponent {
 
   handleUsernameEnter() {
     this.showEmailInput = true;
-    console.log("hello there");
+    //console.log("hello there");
     setTimeout(() => {
       // Focus on the email input
       this.renderer.selectRootElement('#email').focus();
@@ -171,30 +186,6 @@ export class SignupComponent {
     this.formVisible = false;
     this.firstFocus = false;
   }
-
-
-
-  // @HostListener('document:mousemove', ['$event'])
-  // handleMouseMove(event: MouseEvent) {
-  //   const x = event.clientX;
-  //   const y = event.clientY;
-  //
-  //   // Calculate gradient values based on mouse position
-  //   const posX = x / window.innerWidth;
-  //   const posY = y / window.innerHeight;
-  //
-  //   // Set background image with more complex linear gradient
-  //   const gradient = `
-  //     linear-gradient(115deg, rgb(${Math.floor(posX * 255)}, ${Math.floor(posY * 255)}, 215), rgb(0, 0, 0)),
-  //     radial-gradient(50% 50% at ${x}px ${y}px, rgb(200, 200, 200), rgb(22, 0, 45)),
-  //     radial-gradient(80% 100% at ${x}px ${y}px, rgb(250, 255, 0), rgb(36, 0, 0)),
-  //     radial-gradient(100% 100% at ${x}px ${y}px, rgb(20, 175, 125), rgb(0, 10, 255)),
-  //     radial-gradient(100% 70% at ${x}px ${y}px, rgb(255, 77, 0), rgb(0, 200, 255)),
-  //     linear-gradient(60deg, rgb(255, 0, 0), rgb(120, 86, 255))
-  //   `;
-  //
-  //   this.renderer.setStyle(this.div.nativeElement, 'background-image', gradient);
-  // }
 }
 
 

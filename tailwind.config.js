@@ -4,7 +4,12 @@ module.exports = {
     "./src/**/*.{html,ts}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        'noto': ['"Noto Sans Mono"', 'sans-serif'],
+        // Add more custom fonts as needed
+      },
+    },
   },
   plugins: [],
 }

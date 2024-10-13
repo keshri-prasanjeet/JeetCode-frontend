@@ -1,10 +1,42 @@
+.loader-container {
+  position: fixed; // Fixes the loader to the viewport
+  top: 50%; // Centers vertically
+  left: 50%; // Centers horizontally
+  transform: translate(-50%, -50%); // Adjusts for element size
+  display: flex; // Allows for flexbox properties
+  justify-content: center; // Centers horizontally
+  align-items: center; // Centers vertically
+  height: 100vh; // Full viewport height
+  width: 100vw; // Full viewport width
+  background-color: rgba(0, 0, 0, 0.5); // Semi-transparent background
+}
+
 .loader {
   @apply inline-flex items-center;
-  @apply text-slate-300 text-sm animate-pulse;
+  @apply text-slate-300 text-sm; // Loader text styles
+  @apply animate-pulse; // Optional pulse animation
 
   svg {
-    width: 1em;
-    height: 1em;
-    @apply flex mr-2 h-5 w-5 text-slate-500
+    width: 3em !important; // Ensure size is not overridden
+    height: 3em !important; // Ensure size is not overridden
+    @apply flex mr-2 text-lime-400; // Color of the spinner
+
+    animation: spin 0.5s linear infinite; // Optional: Add a custom spin animation
+  }
+
+  .loading-text {
+    font-family: 'ClashGrotesk', sans-serif; // Set font family
+    @apply text-white; // Change text color for better visibility
+    //font-weight: bold; // Bold text for emphasis
+    font-size: 3rem; // Larger font size for visibility
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

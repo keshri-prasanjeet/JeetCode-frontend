@@ -7,10 +7,10 @@
   <a (click)="logout()" id="logout-button">Logout</a>
 </div>
 
-<div id="content" style="text-align: center;">
+<div id="content">
   <h2 class="heading">JeetCode - Problems</h2>
 
-  <table class="text-center">
+  <table>
     <thead>
     <tr>
       <th>ID</th>
@@ -18,22 +18,30 @@
       <th>Difficulty</th>
       <th>Acceptance</th>
       <th>Action</th>
-      <!-- Add more headers as needed -->
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let problem of problems">
-      <td>{{problem.problemId}}</td>
-      <td>{{problem.title}}</td>
-      <td>{{problem.difficulty}}</td>
-      <td>{{problem.acceptance}}</td>
-      <td>
-        <button (click)="onSolveButtonClick(problem.problemId)" class="solve-button">Solve</button>
-        <button (click)="onSubmissionsButtonClick(problem.problemId)" class="solve-button">Submissions</button>
-      </td>
-    </tr>
+    <ng-container *ngIf="(isLoading$ | async) === false; else loadingTemplate">
+      <tr *ngFor="let problem of problems">
+        <td>{{problem.problemId}}</td>
+        <td>{{problem.title}}</td>
+        <td>{{problem.difficulty}}</td>
+        <td>{{problem.acceptance}}</td>
+        <td>
+          <button (click)="onSolveButtonClick(problem.problemId)">Solve</button>
+        </td>
+      </tr>
+    </ng-container>
+    <ng-template #loadingTemplate>
+      <tr *ngFor="let i of [].constructor(13)">
+        <td><app-skeleton [width]="30" [height]="20"></app-skeleton></td>
+        <td><app-skeleton [width]="200" [height]="20"></app-skeleton></td>
+        <td><app-skeleton [width]="80" [height]="20"></app-skeleton></td>
+        <td><app-skeleton [width]="50" [height]="20"></app-skeleton></td>
+        <td><app-skeleton [width]="150" [height]="20"></app-skeleton></td>
+      </tr>
+    </ng-template>
     </tbody>
   </table>
-
 </div>
 </body>

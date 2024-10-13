@@ -1,0 +1,52 @@
+<div class="signup-container">
+  <form #loginForm="ngForm" (ngSubmit)="LoginFormSubmit(loginForm.value)">
+    <!-- Full Name Field -->
+    <div>
+      <label for="fullName">Full Name:</label>
+      <input
+        ngModel name="fullName"
+        #fullName="ngModel"
+        type="text"
+        id="fullName"
+        required
+        placeholder=" enter user name"
+      />
+      <div *ngIf="fullName.invalid && fullName.touched" class="error-message">
+        Full name is required.
+      </div>
+    </div>
+
+    <!-- Password Field -->
+    <div>
+      <label for="password">Password:</label>
+      <input
+        ngModel name="password"
+        #password="ngModel"
+        class="invisible-input"
+        id="password"
+        type="password"
+        placeholder="enter password"
+        minlength="8"
+        required
+      />
+      <div *ngIf="password.invalid && password.touched" class="error-message">
+        Password must be at least 8 characters long.
+      </div>
+    </div>
+
+
+    <!-- Error Message (General) -->
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <!-- Submit Button -->
+    <button type="submit" [disabled]="loginForm.invalid">Login</button>
+  </form>
+  <div class="login-option">
+    <p>
+      Don't have an account?
+      <a [routerLink]="['/signup']" class="signup-link">Signup</a>
+    </p>
+  </div>
+</div>
