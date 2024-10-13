@@ -33,7 +33,7 @@ export class ProblemPageComponent implements OnInit, AfterViewInit {
 
   isLoading$: Observable<boolean>;
   readOnly = false;
-  mode: keyof typeof defaults = 'text/x-python';
+  mode: keyof typeof defaults = 'text/typescript';
   theme: keyof typeof cmThemes = 'night';
   // language: keyof typeof langs = 'text/typescript';
   language = 74;
