@@ -6,28 +6,28 @@ import {SpinGuard} from "./spin.guard";
 
 export const routes: Routes = [
   {
-    path: 'home', component: HomeComponent, title: 'Home'
+    path: 'home', component: HomeComponent, title: 'JeetCode Home'
   },
   {
     path: 'login',
-    title: 'Login',
+    title: 'JeetCode Login',
     loadComponent: () => import('./login/login.component').then(mod => mod.LoginComponent),
     canActivate: [AuthGuard]
   },
   {
     path: 'signup',
-    title: 'Signup',
+    title: 'JeetCode Signup',
     loadComponent: () => import('./signup/signup.component').then(mod => mod.SignupComponent),
     canActivate: [AuthGuard]
   },
   {
     path: 'problems',
-    title: 'Problems',
+    title: 'JeetCode Problems',
     loadComponent: () => import('./problems-list-page/problems-list-page.component').then(mod => mod.ProblemsListPageComponent)
   },
   {
     path: 'problem/:problemId',
-    title: 'Problem',
+    title: 'Solve Problem JeetCode',
     loadComponent: () => import('./problem-page/problem-page.component').then(mod => mod.ProblemPageComponent)
   },
   // {
@@ -48,7 +48,7 @@ export const routes: Routes = [
   // },
   {
     path: 'me',
-    title: 'me',
+    title: 'JeetCode - Profile',
     loadComponent: () => import('./me/me.component').then(mod => MeComponent)
   },
   {
